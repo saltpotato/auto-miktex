@@ -7,8 +7,8 @@ if [ "$#" -lt 1 ]; then
     exit 1
 fi
 
-# Define the resource folder (adjust the path as necessary)
-RESOURCE_DIR="/home/maschu/documents/resources"
+# Define the resource folder based on the $HOME variable
+RESOURCE_DIR="$HOME/documents/resources"
 # Extract the directory and filename from the provided path
 TEX_DIR=$(dirname "$1")
 TEX_FILE=$(basename "$1")
@@ -27,7 +27,7 @@ else
 fi
 
 # Navigate to the directory containing your docker-compose.yml
-cd $HOME/dev/auto-miktex
+cd "$HOME/dev/auto-miktex"
 
 # Run Docker Compose
 docker-compose up

@@ -10,7 +10,7 @@ if [ "$#" -lt 1 ]; then
 fi
 
 # Define the resource folder (adjust the path as necessary)
-RESOURCE_DIR="/home/maschu/documents/resources"
+RESOURCE_DIR="$HOME/documents/resources"
 
 # Check for interactive flag
 INTERACTIVE_MODE="no"
