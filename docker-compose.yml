@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  latexmk-watch:
+    stdin_open: true
+    build: .
+    volumes:
+      - miktex:/var/lib/miktex
+      - ${TEX_DIR}:/miktex/work  # Set TEX_DIR as an environment variable before running
+      - ${RESOURCE_DIR}:/miktex/resources
+      - .latexmkrc:/miktex/rc/.latexmkrc
+    environment:
+      - MIKTEX_UID=${USER_ID}  # Ensure user ID matches host for file permissions
+    command: >
+      -c "
+        while true; do
+          latexmk -pdf -pvc -lualatex -r /miktex/rc/.latexmkrc /miktex/work/$(basename ${TEX_FILE});
+          stty -echo
+          read -n 1 -s key
+          if [[ $$key == $'\x03' ]]; then  # Ctrl+C
+            echo 'Restarting latexmk...'
+            continue
+          elif [[ $$key == $'\x18' ]]; then  # Ctrl+X
+            break
+          fi
+          stty echo
+        done
+      "
+    tty: true  # Necessary for interactive sessions
+
+volumes:
+  miktex:
