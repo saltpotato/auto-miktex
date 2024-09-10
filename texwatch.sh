@@ -30,7 +30,7 @@ fi
 cd "$HOME/dev/auto-miktex"
 
 # Run Docker Compose
-docker-compose up
+docker-compose up --build
 
 # Return to the original directory
 cd -

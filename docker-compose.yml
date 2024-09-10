@@ -12,19 +12,8 @@ services:
     environment:
       - MIKTEX_UID=${USER_ID}  # Ensure user ID matches host for file permissions
     command: >
-      -c "
-        while true; do
+      /bin/bash -c "
           latexmk -pdf -pvc -lualatex -r /miktex/rc/.latexmkrc /miktex/work/$(basename ${TEX_FILE});
-          stty -echo
-          read -n 1 -s key
-          if [[ $$key == $'\x03' ]]; then  # Ctrl+C
-            echo 'Restarting latexmk...'
-            continue
-          elif [[ $$key == $'\x18' ]]; then  # Ctrl+X
-            break
-          fi
-          stty echo
-        done
       "
     tty: true  # Necessary for interactive sessions
 
