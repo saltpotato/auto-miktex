@@ -89,16 +89,16 @@ echo "Using resource directory: $RESOURCE_DIR"
 
 # Conditional execution based on interactive mode
 if [ "$INTERACTIVE_MODE" == "yes" ]; then
-    # Interactive mode: Launch a shell
+    # Interactive mode: Compile with xelatex then launch a shell
     docker run -it \
         -v miktex:/var/lib/miktex \
         -v "$TEX_DIR":/miktex/work \
         -v "$RESOURCE_DIR":/miktex/resources \
         -e MIKTEX_UID=$(id -u) \
-        "$DOCKER_IMAGE" /bin/bash
+        "$DOCKER_IMAGE" bash -c "xelatex '$(basename "$file_path")'; exec bash"
 else
     # Non-interactive mode: Run xelatex
-    docker run -it \
+    docker run \
         -v miktex:/var/lib/miktex \
         -v "$TEX_DIR":/miktex/work \
         -v "$RESOURCE_DIR":/miktex/resources \
