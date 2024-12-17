@@ -1,12 +1,12 @@
 # auto-miktex
 
-This Docker image includes a pre-setup MiKTeX environment, allowing users to compile LaTeX files into PDFs without needing a full MiKTeX installation on the host machine. This is particularly useful for tasks like generating PDFs from LaTeX sources (e.g., resumes, reports).
+This Docker image includes a pre-setup MiKTeX environment, allowing users to compile LaTeX files into PDFs without needing a full MiKTeX installation on the host machine. This is particularly useful for tasks like generating PDFs from LaTeX sources (e.g., resumes, reports). It functions much like a command-line tool, giving users direct access to MiKTeX capabilities.
 
 ## Features
 
-- **Compiler**: The image uses `xelatex` for compilation. Currently, no other compilers like `LuaLaTeX` are tested.
+- **Compiler**: The image uses `xelatex` for compilation. Currently, no other compilers like `LuaLaTeX` are tested. `LuaLaTeX` can become very slow sometimes already and switching from - and to Docker demands some adaptations which are not realized yet.
 - **Resource Directory**: You can use the `--resource-dir` argument to bind an additional directory to the container, which is useful for including shared resources between LaTeX files.
-- **Automatic Package Installation**: When compiling a file, if any LaTeX packages are missing, they will be installed automatically from the MiKTeX repositories.
+- **Automatic Package Installation**: When compiling a file, if any LaTeX packages are missing, they will be installed automatically from the MiKTeX repositories. This automatic installation is a standard feature of MiKTeX.
 
 ## Including Resource Files
 
